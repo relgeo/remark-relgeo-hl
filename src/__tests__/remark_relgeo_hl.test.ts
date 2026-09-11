@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Root } from 'mdast';
-import { RelGeoLanguageService } from 'relgeo-language-service';
+import { RelGeoLanguageService } from '@relgeo/language-service';
 import { buildHighlightedHtml, remarkRelgeoHl } from '../index';
 
 type HighlightedChild = {
@@ -46,7 +46,7 @@ function runPlugin(source: string) {
   return tree.children[0] as HighlightedCodeNode;
 }
 
-describe('remark-relgeo-hl', () => {
+describe('@relgeo/remark-relgeo-hl', () => {
   it('converts rg fences into pre > code with semantic token spans', () => {
     const node = runPlugin(`objects:
   panel:

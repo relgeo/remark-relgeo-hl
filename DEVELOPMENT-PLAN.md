@@ -1,4 +1,4 @@
-# remark-relgeo-hl Development Plan
+# @relgeo/remark-relgeo-hl Development Plan
 
 Status dokumen: `Active Package Plan`
 
@@ -14,7 +14,7 @@ Dokumen terkait:
 
 ## 1. Peran Package
 
-`remark-relgeo-hl` adalah adapter markdown untuk menampilkan source RelGeo dengan baik di fenced code `rg`.
+`@relgeo/remark-relgeo-hl` adalah adapter markdown untuk menampilkan source RelGeo dengan baik di fenced code `rg`.
 
 Paket ini penting karena visi RelGeo bukan hanya menghasilkan gambar, tetapi juga membuat aturan gambar tetap:
 
@@ -23,7 +23,7 @@ Paket ini penting karena visi RelGeo bukan hanya menghasilkan gambar, tetapi jug
 3. bisa dipelajari
 4. bisa disisipkan di markdown
 
-Kalau `remark-relgeo` membuktikan sisi preview, maka `remark-relgeo-hl` membuktikan sisi source literacy.
+Kalau `@relgeo/remark-relgeo` membuktikan sisi preview, maka `@relgeo/remark-relgeo-hl` membuktikan sisi source literacy.
 
 ---
 
@@ -108,7 +108,7 @@ Pipeline target:
 
 Arah dependency sehat:
 
-1. dependency utama ke `relgeo-language-service`
+1. dependency utama ke `@relgeo/language-service`
 2. tanpa dependency ke renderer SVG secara default
 3. tanpa membawa parser alternatif yang menyimpang dari language service
 
@@ -191,7 +191,7 @@ Acceptance:
 
 Fokus:
 
-1. integrasi dengan `relgeo-language-service`
+1. integrasi dengan `@relgeo/language-service`
 2. desain token taxonomy
 3. token spans atau data attributes untuk semantic styling
 4. fallback aman saat service belum siap
@@ -279,7 +279,7 @@ Kasus penting:
 
 ## 12. Kriteria Matang
 
-`remark-relgeo-hl` dapat disebut matang bila:
+`@relgeo/remark-relgeo-hl` dapat disebut matang bila:
 
 1. `rg` secara konsisten menjadi cara terbaik menampilkan source RelGeo di markdown
 2. source tetap nyaman dibaca tanpa semantic mode penuh
@@ -306,7 +306,7 @@ Keputusan yang sekarang dianggap cukup stabil untuk package ini:
 
 1. membakukan output dasar dan line metadata sebagai kontrak tahap awal
 2. merancang token taxonomy awal yang tidak terlalu besar tetapi benar-benar berguna
-3. menyiapkan integration path yang sehat ke `relgeo-language-service`
+3. menyiapkan integration path yang sehat ke `@relgeo/language-service`
 4. merapikan README publik dan contoh consumer dasar
 
 ### Masih Terbuka
@@ -331,7 +331,7 @@ Hal penting yang layak dijaga di radar, tetapi tidak perlu menahan tahap awal:
 
 1. fence aktif tetap `rg`
 2. package ini tetap source-oriented
-3. preview tetap menjadi tanggung jawab `remark-relgeo`
+3. preview tetap menjadi tanggung jawab `@relgeo/remark-relgeo`
 4. fallback dasar harus tetap bekerja walau semantic layer belum matang
 
 ---

@@ -1,5 +1,5 @@
 import type { Code, Root } from 'mdast';
-import { RelGeoLanguageService } from 'relgeo-language-service';
+import { RelGeoLanguageService } from '@relgeo/language-service';
 import { visit } from 'unist-util-visit';
 import { buildHighlightedChildren } from './render';
 

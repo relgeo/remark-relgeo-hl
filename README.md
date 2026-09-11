@@ -1,11 +1,11 @@
-# remark-relgeo-hl
+# @relgeo/remark-relgeo-hl
 
 Remark plugin for highlighting RelGeo source inside fenced code blocks with the
 language id `rg`.
 
 ## Versioning
 
-The package metadata version (`0.5.0`) is independent from the active RelGeo DSL contract version (`v0.5`). This plugin presents source from the DSL contract; package releases and language-contract revisions are tracked separately.
+The `@relgeo/remark-relgeo-hl` package is currently `0.5.0`, on the RelGeo DSL `v0.5` compatibility line. Patch releases may move independently; a breaking language-contract change moves the coordinated package line to `0.6.x`.
 
 ## Intent
 
@@ -15,7 +15,7 @@ It does not render preview SVG. Its job is to:
 
 1. detect fenced code `rg`
 2. preserve readable source output
-3. consume semantic token spans from `relgeo-language-service`
+3. consume semantic token spans from `@relgeo/language-service`
 4. add stable classes and metadata for styling
 
 Detailed package plan:
@@ -27,7 +27,7 @@ Detailed package plan:
 Register the plugin in a remark-based Markdown pipeline:
 
 ```js
-import remarkRelgeoHl from 'remark-relgeo-hl';
+import remarkRelgeoHl from '@relgeo/remark-relgeo-hl';
 
 remarkPlugins: [remarkRelgeoHl]
 ```
@@ -58,7 +58,7 @@ The wrapper carries stable metadata for consumer styling and testing:
 </pre>
 ```
 
-The plugin does not render SVG or preview images. Pair it with `remark-relgeo`
+The plugin does not render SVG or preview images. Pair it with `@relgeo/remark-relgeo`
 only when a document intentionally needs both source and rendered-artifact
 surfaces.
 
@@ -68,7 +68,7 @@ The current scaffold provides a safe first implementation:
 
 1. detects `rg` blocks
 2. preserves source as markdown-renderable code output
-3. consumes token spans from `relgeo-language-service`
+3. consumes token spans from `@relgeo/language-service`
 4. annotates tokens, lines, and wrapper nodes with stable classes
 
 ## Contract Tests

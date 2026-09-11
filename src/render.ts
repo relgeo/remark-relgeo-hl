@@ -1,4 +1,4 @@
-import type { RelGeoSemanticLine, RelGeoSemanticToken } from 'relgeo-language-service';
+import type { RelGeoSemanticLine, RelGeoSemanticToken } from '@relgeo/language-service';
 
 export type HastChild =
   | { type: 'text'; value: string }

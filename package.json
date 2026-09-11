@@ -1,5 +1,5 @@
 {
-  "name": "remark-relgeo-hl",
+  "name": "@relgeo/remark-relgeo-hl",
   "version": "0.5.0",
   "description": "Remark plugin for RelGeo source highlighting in fenced code `rg` blocks",
   "homepage": "https://relgeo.github.io/",
@@ -34,16 +34,20 @@
   ],
   "author": "Agus Made",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "dependencies": {
     "unist-util-visit": "^5.0.0"
   },
   "peerDependencies": {
-    "relgeo-language-service": "^0.4.0"
+    "@relgeo/language-service": "^0.5.0"
   },
   "devDependencies": {
     "@types/mdast": "^4.0.4",
     "@types/unist": "^3.0.3",
-    "relgeo-language-service": "^0.4.0",
+    "@relgeo/language-service": "^0.5.0",
     "tsup": "^8.5.1",
     "typescript": "~6.0.3",
     "vitest": "^4.1.5"
