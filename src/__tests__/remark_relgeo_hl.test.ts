@@ -25,7 +25,14 @@ type HighlightedCodeNode = {
   };
 };
 
-function runPlugin(source: string) {
+function runPlugin(
+  source: string,
+  options: Parameters<typeof remarkRelgeoHl>[0] = {},
+  position?: {
+    start: { line: number; column: number; offset?: number };
+    end: { line: number; column: number; offset?: number };
+  },
+) {
   const tree: Root = {
     type: 'root',
     children: [
@@ -34,12 +41,14 @@ function runPlugin(source: string) {
         lang: 'rg',
         meta: null,
         value: source,
+        position,
       },
     ],
   };
 
   const transformer = remarkRelgeoHl({
-    languageService: new RelGeoLanguageService(),
+    ...options,
+    languageService: options.languageService ?? new RelGeoLanguageService(),
   });
   transformer(tree);
 
@@ -80,6 +89,9 @@ derived:
     expect(node.lang).toBeNull();
     expect(node.data?.hName).toBe('pre');
     expect(node.data?.hProperties?.['data-relgeo-kind']).toBe('highlight');
+    expect(node.data?.hProperties?.['data-relgeo-dsl-version']).toBe('0.5');
+    expect(node.data?.hProperties?.['data-relgeo-package-line']).toBe('0.5.x');
+    expect(node.data?.hProperties?.['data-relgeo-plugin']).toBe('remark-relgeo-hl');
 
     const codeChild = node.data?.hChildren?.[0];
     expect(codeChild?.tagName).toBe('code');
@@ -221,5 +233,44 @@ derived:
     expect(html).toContain('relgeo-hl__token--object-id');
     expect(html).toContain('relgeo-hl__token--object-type');
     expect(html).toContain('relgeo-hl__token--string');
+  });
+
+  it('preserves source when the language service fails', () => {
+    const node = runPlugin('objects:\n  panel:\n    type: rect', {
+      languageService: {
+        getSemanticTokens: () => {
+          throw new Error('synthetic token service failure');
+        },
+      },
+    }, {
+      start: { line: 8, column: 3, offset: 90 },
+      end: { line: 10, column: 16, offset: 127 },
+    });
+
+    expect(node.data?.hProperties?.['data-relgeo-kind']).toBe('highlight-error');
+    expect(node.data?.hProperties?.['data-relgeo-diagnostic']).toBeDefined();
+    expect(node.data?.hChildren?.[0]?.children?.[0]?.children?.[0]?.value).toBe('objects:');
+
+    const diagnostic = JSON.parse(
+      String(node.data?.hProperties?.['data-relgeo-diagnostic']),
+    );
+    expect(diagnostic).toMatchObject({
+      code: 'HIGHLIGHT_SERVICE_FAILED',
+      severity: 'error',
+      phase: 'highlight',
+      location: { fence: 'rg' },
+    });
+    expect(diagnostic.location.range.start.line).toBe(8);
+  });
+
+  it('allows strict callers to fail on token-service errors', () => {
+    expect(() => runPlugin('objects:', {
+      failurePolicy: 'strict',
+      languageService: {
+        getSemanticTokens: () => {
+          throw new Error('synthetic token service failure');
+        },
+      },
+    })).toThrowError(expect.objectContaining({ name: 'RemarkRelgeoHlError' }));
   });
 });
